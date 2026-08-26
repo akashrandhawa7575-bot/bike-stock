@@ -3,119 +3,335 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bike Stock</title>
-<meta name="description" content="Browse our current motorcycle stock — price, kilometers, condition and contact details." />
+<title>Akash Motors — Quality Used Bikes</title>
+<meta name="description" content="Buy and sell quality used bikes in Punjab. Hero, Bajaj, TVS, Royal Enfield, KTM — inspected, priced fairly, clean paperwork." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a href="#" class="brand" id="brand-name"><span class="dot">●</span> Bike Stock</a>
+<!-- ── Navbar ── -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo" id="brand-name">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">Akash <em>Motors</em></span>
+    </a>
     <nav class="nav-links">
       <a href="#stock">Stock</a>
+      <a href="#categories">Browse</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a href="#" class="header-cta" id="header-whatsapp" target="_blank" rel="noopener">Enquire on WhatsApp</a>
+    <div class="nav-actions">
+      <a href="#" class="nav-phone" id="nav-phone">📞 <span id="nav-phone-num">Call Us</span></a>
+      <a href="#" class="nav-wa" id="header-whatsapp" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#stock">Stock</a>
+    <a href="#categories">Browse</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#" id="mobile-wa" target="_blank" rel="noopener" class="mobile-wa-btn">WhatsApp Us</a>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <p class="hero-eyebrow">Bought &amp; Sold Honestly</p>
-    <h1>Find your next <em>ride</em>, sell your old one</h1>
-    <p class="lead" id="hero-lead">Every bike listed here is inspected, priced fairly, and comes with clean paperwork. Filter the stock below to find what fits.</p>
+<!-- ── Hero ── -->
+<section class="hero" id="hero">
+  <div class="hero-slides" id="hero-slides">
+    <!-- Slides injected by JS -->
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tag" id="hero-tag">Punjab's Trusted Bike Dealer</p>
+    <h1 class="hero-title">Your next ride<br/><em>starts here</em></h1>
+    <p class="hero-sub" id="hero-sub">Inspected bikes. Fair prices. Clean paperwork.</p>
+    <div class="hero-btns">
+      <a href="#stock" class="btn-primary">Browse Stock</a>
+      <a href="#" class="btn-ghost" id="hero-sell">Sell Your Bike</a>
+    </div>
+  </div>
+  <div class="hero-slide-dots" id="hero-dots"></div>
+  <div class="hero-scroll-hint">scroll ↓</div>
+</section>
 
-    <div class="filter-dock">
-      <div class="filter-field">
-        <label for="f-brand">Brand</label>
-        <select id="f-brand"><option value="">All brands</option></select>
-      </div>
-      <div class="filter-field">
-        <label for="f-year">Min year</label>
-        <select id="f-year"><option value="">Any year</option></select>
-      </div>
-      <div class="filter-field">
-        <label for="f-price">Max price (₹)</label>
-        <input type="number" id="f-price" placeholder="e.g. 150000" min="0" />
-      </div>
-      <div class="filter-field">
-        <label for="f-sort">Sort by</label>
-        <select id="f-sort">
-          <option value="newest">Newest listed</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-          <option value="km-asc">Km: Low to High</option>
-        </select>
-      </div>
-      <button class="reset-btn" id="reset-filters">Reset</button>
+<!-- ── Trust Bar ── -->
+<section class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <span class="trust-num">500+</span>
+      <span class="trust-label">Happy Customers</span>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-item">
+      <span class="trust-num">100%</span>
+      <span class="trust-label">Verified Paperwork</span>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-item">
+      <span class="trust-num">Fair</span>
+      <span class="trust-label">Honest Pricing</span>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-item">
+      <span class="trust-num">Fast</span>
+      <span class="trust-label">RC Transfer Help</span>
     </div>
   </div>
 </section>
 
+<!-- ── Browse by Category ── -->
+<section class="categories" id="categories">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Browse By Type</span>
+      <h2>Find your style</h2>
+    </div>
+    <div class="cat-grid">
+      <button class="cat-card active" data-cat="">
+        <div class="cat-icon">🏍️</div>
+        <div class="cat-name">All Bikes</div>
+      </button>
+      <button class="cat-card" data-cat="commuter">
+        <div class="cat-icon">🛵</div>
+        <div class="cat-name">Commuter</div>
+      </button>
+      <button class="cat-card" data-cat="sports">
+        <div class="cat-icon">⚡</div>
+        <div class="cat-name">Sports</div>
+      </button>
+      <button class="cat-card" data-cat="cruiser">
+        <div class="cat-icon">🔥</div>
+        <div class="cat-name">Cruiser</div>
+      </button>
+      <button class="cat-card" data-cat="adventure">
+        <div class="cat-icon">🏔️</div>
+        <div class="cat-name">Adventure</div>
+      </button>
+      <button class="cat-card" data-cat="scooter">
+        <div class="cat-icon">🛺</div>
+        <div class="cat-name">Scooter</div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Brand Logos ── -->
+<section class="brands-strip">
+  <div class="brands-track">
+    <div class="brands-inner" id="brands-inner">
+      <span>HERO</span>
+      <span>BAJAJ</span>
+      <span>TVS</span>
+      <span>ROYAL ENFIELD</span>
+      <span>KTM</span>
+      <span>HONDA</span>
+      <span>YAMAHA</span>
+      <span>SUZUKI</span>
+      <!-- duplicated for infinite scroll -->
+      <span>HERO</span>
+      <span>BAJAJ</span>
+      <span>TVS</span>
+      <span>ROYAL ENFIELD</span>
+      <span>KTM</span>
+      <span>HONDA</span>
+      <span>YAMAHA</span>
+      <span>SUZUKI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Inventory ── -->
 <section class="inventory" id="stock">
-  <div class="wrap">
-    <div class="section-heading">
-      <h2>Current Stock</h2>
+  <div class="section-wrap">
+    <div class="section-head inv-head">
+      <div>
+        <span class="section-eyebrow">Available Now</span>
+        <h2>Current Stock</h2>
+      </div>
+      <div class="filter-dock">
+        <select id="f-brand" class="filter-sel">
+          <option value="">All Brands</option>
+        </select>
+        <select id="f-year" class="filter-sel">
+          <option value="">Any Year</option>
+        </select>
+        <input type="number" id="f-price" class="filter-input" placeholder="Max Price ₹" min="0" />
+        <select id="f-sort" class="filter-sel">
+          <option value="newest">Newest</option>
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+          <option value="km-asc">KM ↑</option>
+        </select>
+        <button class="reset-btn" id="reset-filters">Reset</button>
+      </div>
+    </div>
+    <div class="result-bar">
       <span class="result-count" id="result-count">Loading…</span>
     </div>
-    <div class="grid" id="bike-grid"></div>
+    <div class="bike-grid" id="bike-grid"></div>
   </div>
 </section>
 
-<section class="about-strip" id="about">
-  <div class="wrap about-grid">
-    <div>
-      <h2>About Us</h2>
-      <p id="about-text">We buy and sell used and new motorcycles with honest pricing and verified paperwork.</p>
-      <p id="about-hours-text"></p>
+<!-- ── Sell Your Bike CTA ── -->
+<section class="sell-cta">
+  <div class="sell-cta-inner">
+    <div class="sell-cta-text">
+      <h2>Planning to Sell?</h2>
+      <p>We buy bikes directly — outright payment, no waiting. Get the best offer for your bike today.</p>
+      <ul class="sell-points">
+        <li>✔ Outright cash purchase</li>
+        <li>✔ Best market price offered</li>
+        <li>✔ Hassle-free RC transfer</li>
+        <li>✔ Same-day inspection</li>
+      </ul>
     </div>
-    <div class="info-card" id="contact">
-      <div class="row"><span class="k">Location</span><span class="v" id="info-city"></span></div>
-      <div class="row"><span class="k">Address</span><span class="v" id="info-address"></span></div>
-      <div class="row"><span class="k">Phone</span><span class="v" id="info-phone"></span></div>
-      <div class="row"><span class="k">Hours</span><span class="v" id="info-hours"></span></div>
+    <a href="#" class="btn-primary btn-lg" id="sell-cta-wa">Get a Quote on WhatsApp</a>
+  </div>
+</section>
+
+<!-- ── Reviews ── -->
+<section class="reviews" id="reviews">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Customer Stories</span>
+      <h2>What people say</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Bought a Royal Enfield from Akash Motors. The bike was exactly as described — clean papers, good condition. Very honest dealing. Highly recommended!"</p>
+        <div class="review-author">
+          <div class="review-avatar">RS</div>
+          <div>
+            <div class="review-name">Rajveer Singh</div>
+            <div class="review-loc">Nabha, Punjab</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Sold my old Pulsar here. Got a better price than I expected and the whole process was done in one day. No drama, no delays."</p>
+        <div class="review-author">
+          <div class="review-avatar">PK</div>
+          <div>
+            <div class="review-name">Paramjit Kaur</div>
+            <div class="review-loc">Patiala, Punjab</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Great experience buying my KTM Duke. Akash bhai explained everything clearly — loan options, RC transfer, insurance. Will come back for sure."</p>
+        <div class="review-author">
+          <div class="review-avatar">AM</div>
+          <div>
+            <div class="review-name">Arjun Mehta</div>
+            <div class="review-loc">Sangrur, Punjab</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Very transparent pricing. No hidden charges. I compared 4-5 dealers before coming here and this was the best deal by far. Good stock of Hero bikes."</p>
+        <div class="review-author">
+          <div class="review-avatar">GD</div>
+          <div>
+            <div class="review-name">Gurpreet Dhaliwal</div>
+            <div class="review-loc">Ludhiana, Punjab</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <span id="footer-text">© <span id="footer-year"></span> Bike Stock — All bikes subject to availability.</span>
+<!-- ── About ── -->
+<section class="about" id="about">
+  <div class="section-wrap about-inner">
+    <div class="about-text">
+      <span class="section-eyebrow">About Us</span>
+      <h2 id="about-heading">Akash Motors</h2>
+      <p id="about-body">We buy and sell quality used motorcycles with honest pricing and verified paperwork. Every bike in our stock has been personally inspected.</p>
+      <p id="about-hours-text" class="about-hours"></p>
+      <div class="info-card" id="contact">
+        <div class="info-row"><span class="ik">📍 Location</span><span class="iv" id="info-city">—</span></div>
+        <div class="info-row"><span class="ik">🏠 Address</span><span class="iv" id="info-address">—</span></div>
+        <div class="info-row"><span class="ik">📞 Phone</span><span class="iv" id="info-phone">—</span></div>
+        <div class="info-row"><span class="ik">🕐 Hours</span><span class="iv" id="info-hours">—</span></div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-stat-box">
+        <div class="stat"><span class="stat-n">500+</span><span class="stat-l">Bikes Sold</span></div>
+        <div class="stat"><span class="stat-n">8+</span><span class="stat-l">Years in Business</span></div>
+        <div class="stat"><span class="stat-n">5★</span><span class="stat-l">Customer Rating</span></div>
+        <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Clean Papers</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">Akash <em>Motors</em></span>
+    </div>
+    <div class="footer-links">
+      <a href="#stock">Stock</a>
+      <a href="#categories">Browse</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy" id="footer-text">© <span id="footer-year"></span> Akash Motors — All bikes subject to availability.</div>
   </div>
 </footer>
 
+<!-- ── WhatsApp Float ── -->
+<a href="#" class="wa-float" id="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ── Bike Detail Modal ── -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
-    <div class="modal-photo" id="modal-photo">
+    <div class="modal-gallery" id="modal-gallery">
       <img id="modal-img" src="" alt="" />
-      <button class="gallery-arrow left" id="modal-prev" aria-label="Previous photo">‹</button>
-      <button class="gallery-arrow right" id="modal-next" aria-label="Next photo">›</button>
-      <span class="gallery-count" id="modal-count"></span>
-      <button class="expand-btn" id="modal-expand" aria-label="View full screen">⤢</button>
+      <button class="gal-arrow left" id="modal-prev">‹</button>
+      <button class="gal-arrow right" id="modal-next">›</button>
+      <span class="gal-count" id="modal-count"></span>
+      <button class="expand-btn" id="modal-expand" aria-label="View fullscreen">⤢</button>
     </div>
     <div class="modal-thumbs" id="modal-thumbs"></div>
     <div class="modal-body">
       <h3 id="modal-model"></h3>
-      <p class="modal-brand" id="modal-brand"></p>
-      <div class="modal-spec-grid" id="modal-specs"></div>
+      <p class="modal-sub" id="modal-brand"></p>
+      <div class="modal-specs" id="modal-specs"></div>
       <p class="modal-desc" id="modal-desc"></p>
-      <div class="modal-price-row">
+      <div class="modal-footer">
         <div class="modal-price" id="modal-price"></div>
-        <a href="#" class="whatsapp-btn" id="modal-whatsapp" target="_blank" rel="noopener">Ask about this bike</a>
+        <a href="#" class="btn-primary" id="modal-whatsapp" target="_blank" rel="noopener">Ask on WhatsApp</a>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ── Lightbox ── -->
 <div class="lightbox-overlay" id="lightbox-overlay">
-  <button class="modal-close" id="lightbox-close" aria-label="Close">✕</button>
-  <button class="gallery-arrow left" id="lightbox-prev" aria-label="Previous photo">‹</button>
+  <button class="modal-close" id="lightbox-close">✕</button>
+  <button class="gal-arrow left" id="lightbox-prev">‹</button>
   <img id="lightbox-img" src="" alt="" />
-  <button class="gallery-arrow right" id="lightbox-next" aria-label="Next photo">›</button>
-  <span class="gallery-count" id="lightbox-count"></span>
+  <button class="gal-arrow right" id="lightbox-next">›</button>
+  <span class="gal-count" id="lightbox-count"></span>
 </div>
 
 <script src="script.js"></script>
