@@ -81,7 +81,14 @@
             <div class="form-field"><label>Brand</label><input id="b-brand" required /></div>
             <div class="form-field"><label>Model</label><input id="b-model" required /></div>
             <div class="form-field"><label>Year</label><input id="b-year" type="number" required /></div>
-            <div class="form-field"><label>Price (₹)</label><input id="b-price" type="number" required /></div>
+            <div class="form-field">
+              <label>Price Type</label>
+              <select id="b-priceType">
+                <option value="fixed">Fixed Price</option>
+                <option value="call">Call for Price</option>
+              </select>
+            </div>
+            <div class="form-field" id="b-price-wrap"><label>Price (₹)</label><input id="b-price" type="number" /></div>
             <div class="form-field"><label>KM Run</label><input id="b-km" type="number" required /></div>
             <div class="form-field"><label>Condition</label>
               <select id="b-condition">
@@ -95,15 +102,21 @@
             <div class="form-field"><label>Status</label>
               <select id="b-status"><option value="available">Available</option><option value="sold">Sold</option></select>
             </div>
-            <div class="form-field">
-              <label>Photo</label>
-              <input id="b-image-file" type="file" accept="image/*" />
-              <small class="hint">Or paste an image URL below instead of uploading.</small>
-            </div>
-            <div class="form-field span-2"><label>Image URL</label><input id="b-image-url" placeholder="https://... or leave blank if uploading a file" /></div>
             <div class="form-field span-2">
-              <label>Preview</label>
-              <div class="image-preview" id="b-image-preview"><span>No image selected</span></div>
+              <label>Photos</label>
+              <input id="b-image-file" type="file" accept="image/*" multiple />
+              <small class="hint">Select multiple photos at once (Ctrl/Cmd-click), or add one at a time — each Add appends to the list below. You can also paste an image URL instead.</small>
+            </div>
+            <div class="form-field">
+              <label>Add Image URL</label>
+              <div style="display:flex; gap:8px;">
+                <input id="b-image-url" placeholder="https://..." style="flex:1;" />
+                <button type="button" class="pill-btn" id="b-add-url-btn">Add</button>
+              </div>
+            </div>
+            <div class="form-field span-2">
+              <label>Photos for this listing (first = cover photo)</label>
+              <div class="photo-list" id="b-photo-list"><span class="hint" style="color:var(--chrome)">No photos added yet</span></div>
             </div>
             <div class="form-field span-2"><label>Description</label><textarea id="b-description"></textarea></div>
           </div>
