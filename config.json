@@ -1,0 +1,10 @@
+{
+  "businessName": "Your Bike Stock Name",
+  "tagline": "Buy. Sell. Ride.",
+  "city": "Amritsar, Punjab",
+  "address": "Add your shop address here",
+  "phone": "+91 00000 00000",
+  "whatsapp": "910000000000",
+  "hours": "Mon – Sat, 10:00 AM – 7:30 PM",
+  "aboutText": "We buy and sell used and new motorcycles with honest pricing and verified paperwork. Edit this text from the admin panel or directly in data/config.json."
+}

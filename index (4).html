@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bike Stock</title>
+<meta name="description" content="Browse our current motorcycle stock — price, kilometers, condition and contact details." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="brand" id="brand-name"><span class="dot">●</span> Bike Stock</a>
+    <nav class="nav-links">
+      <a href="#stock">Stock</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#" class="header-cta" id="header-whatsapp" target="_blank" rel="noopener">Enquire on WhatsApp</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">Bought &amp; Sold Honestly</p>
+    <h1>Find your next <em>ride</em>, sell your old one</h1>
+    <p class="lead" id="hero-lead">Every bike listed here is inspected, priced fairly, and comes with clean paperwork. Filter the stock below to find what fits.</p>
+
+    <div class="filter-dock">
+      <div class="filter-field">
+        <label for="f-brand">Brand</label>
+        <select id="f-brand"><option value="">All brands</option></select>
+      </div>
+      <div class="filter-field">
+        <label for="f-year">Min year</label>
+        <select id="f-year"><option value="">Any year</option></select>
+      </div>
+      <div class="filter-field">
+        <label for="f-price">Max price (₹)</label>
+        <input type="number" id="f-price" placeholder="e.g. 150000" min="0" />
+      </div>
+      <div class="filter-field">
+        <label for="f-sort">Sort by</label>
+        <select id="f-sort">
+          <option value="newest">Newest listed</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="km-asc">Km: Low to High</option>
+        </select>
+      </div>
+      <button class="reset-btn" id="reset-filters">Reset</button>
+    </div>
+  </div>
+</section>
+
+<section class="inventory" id="stock">
+  <div class="wrap">
+    <div class="section-heading">
+      <h2>Current Stock</h2>
+      <span class="result-count" id="result-count">Loading…</span>
+    </div>
+    <div class="grid" id="bike-grid"></div>
+  </div>
+</section>
+
+<section class="about-strip" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <h2>About Us</h2>
+      <p id="about-text">We buy and sell used and new motorcycles with honest pricing and verified paperwork.</p>
+      <p id="about-hours-text"></p>
+    </div>
+    <div class="info-card" id="contact">
+      <div class="row"><span class="k">Location</span><span class="v" id="info-city"></span></div>
+      <div class="row"><span class="k">Address</span><span class="v" id="info-address"></span></div>
+      <div class="row"><span class="k">Phone</span><span class="v" id="info-phone"></span></div>
+      <div class="row"><span class="k">Hours</span><span class="v" id="info-hours"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span id="footer-text">© <span id="footer-year"></span> Bike Stock — All bikes subject to availability.</span>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <div class="modal-photo"><img id="modal-img" src="" alt="" /></div>
+    <div class="modal-body">
+      <h3 id="modal-model"></h3>
+      <p class="modal-brand" id="modal-brand"></p>
+      <div class="modal-spec-grid" id="modal-specs"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modal-price"></div>
+        <a href="#" class="whatsapp-btn" id="modal-whatsapp" target="_blank" rel="noopener">Ask about this bike</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

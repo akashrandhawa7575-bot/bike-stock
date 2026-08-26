@@ -1,0 +1,50 @@
+[
+  {
+    "id": "bk-1001",
+    "brand": "Royal Enfield",
+    "model": "Classic 350",
+    "year": 2022,
+    "price": 165000,
+    "km": 8200,
+    "condition": "Excellent",
+    "ownership": "1st Owner",
+    "fuel": "Petrol",
+    "color": "Stealth Black",
+    "docs": "RC + Insurance valid",
+    "status": "available",
+    "description": "Single owner, showroom serviced, new tyres fitted last month.",
+    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "bk-1002",
+    "brand": "Bajaj",
+    "model": "Pulsar NS200",
+    "year": 2021,
+    "price": 118000,
+    "km": 14500,
+    "condition": "Good",
+    "ownership": "2nd Owner",
+    "fuel": "Petrol",
+    "color": "Red",
+    "docs": "RC + Insurance valid",
+    "status": "available",
+    "description": "Well maintained, minor scratches on tank, all papers clear.",
+    "image": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "bk-1003",
+    "brand": "Honda",
+    "model": "Shine",
+    "year": 2020,
+    "price": 62000,
+    "km": 21000,
+    "condition": "Good",
+    "ownership": "1st Owner",
+    "fuel": "Petrol",
+    "color": "Grey",
+    "docs": "RC + Insurance valid",
+    "status": "sold",
+    "description": "Daily commuter, great mileage, recently serviced.",
+    "image": "https://images.unsplash.com/photo-1622185135505-2d795003994a?auto=format&fit=crop&w=900&q=80"
+  }
+]
