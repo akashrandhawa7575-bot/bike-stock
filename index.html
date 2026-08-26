@@ -89,7 +89,14 @@
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
-    <div class="modal-photo"><img id="modal-img" src="" alt="" /></div>
+    <div class="modal-photo" id="modal-photo">
+      <img id="modal-img" src="" alt="" />
+      <button class="gallery-arrow left" id="modal-prev" aria-label="Previous photo">‹</button>
+      <button class="gallery-arrow right" id="modal-next" aria-label="Next photo">›</button>
+      <span class="gallery-count" id="modal-count"></span>
+      <button class="expand-btn" id="modal-expand" aria-label="View full screen">⤢</button>
+    </div>
+    <div class="modal-thumbs" id="modal-thumbs"></div>
     <div class="modal-body">
       <h3 id="modal-model"></h3>
       <p class="modal-brand" id="modal-brand"></p>
@@ -101,6 +108,14 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="lightbox-overlay" id="lightbox-overlay">
+  <button class="modal-close" id="lightbox-close" aria-label="Close">✕</button>
+  <button class="gallery-arrow left" id="lightbox-prev" aria-label="Previous photo">‹</button>
+  <img id="lightbox-img" src="" alt="" />
+  <button class="gallery-arrow right" id="lightbox-next" aria-label="Next photo">›</button>
+  <span class="gallery-count" id="lightbox-count"></span>
 </div>
 
 <script src="script.js"></script>
