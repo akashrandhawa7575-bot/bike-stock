@@ -1,21 +1,5 @@
 [
   {
-    "id": "bk-1002",
-    "brand": "Bajaj",
-    "model": "Pulsar NS200",
-    "year": 2021,
-    "price": 118000,
-    "km": 14500,
-    "condition": "Good",
-    "ownership": "2nd Owner",
-    "fuel": "Petrol",
-    "color": "Red",
-    "docs": "RC + Insurance valid",
-    "status": "available",
-    "description": "Well maintained, minor scratches on tank, all papers clear.",
-    "image": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=80"
-  },
-  {
     "id": "bk-1003",
     "brand": "Honda",
     "model": "Shine",
