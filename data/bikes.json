@@ -1,5 +1,21 @@
 [
   {
+    "id": "bk-1787761624564",
+    "brand": "Royal Enfield",
+    "model": "Classic Bullet 350",
+    "year": 2023,
+    "price": 185000,
+    "km": 31500,
+    "condition": "Excellent",
+    "ownership": "1st Owner",
+    "fuel": "Petrol",
+    "color": "Black And Red",
+    "docs": "RC + insurance Valid",
+    "status": "available",
+    "description": "",
+    "image": "images/1787761614036-image2.jpeg"
+  },
+  {
     "id": "bk-1787761311030",
     "brand": "Royal Enfield",
     "model": "Bullet 350",
