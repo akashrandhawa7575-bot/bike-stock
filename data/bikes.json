@@ -1,18 +1,1 @@
-[
-  {
-    "id": "bk-1003",
-    "brand": "Honda",
-    "model": "Shine",
-    "year": 2020,
-    "price": 62000,
-    "km": 21000,
-    "condition": "Good",
-    "ownership": "1st Owner",
-    "fuel": "Petrol",
-    "color": "Grey",
-    "docs": "RC + Insurance valid",
-    "status": "sold",
-    "description": "Daily commuter, great mileage, recently serviced.",
-    "image": "https://images.unsplash.com/photo-1622185135505-2d795003994a?auto=format&fit=crop&w=900&q=80"
-  }
-]
+[]
