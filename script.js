@@ -228,13 +228,24 @@
     const images = bike.images && bike.images.length ? bike.images : (bike.image ? [bike.image] : []);
     const card = document.createElement('article');
     card.className = 'bike-card';
+    
+    // Track the current image index for this specific card
+    let currentImgIndex = 0;
+
     card.innerHTML = `
       <div class="bike-punch"></div>
       <div class="bike-stock">#${bike.id}</div>
-      <div class="bike-photo">
-        <img src="${images[0] || ''}" alt="${bike.brand} ${bike.model}" loading="lazy" />
+      <div class="bike-photo" style="position: relative;">
+        <!-- Add Previous Arrow if multiple images -->
+        ${images.length > 1 ? `<button class="card-nav card-prev" aria-label="Previous" style="position:absolute; left:5px; top:50%; transform:translateY(-50%); z-index:2; background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">‹</button>` : ''}
+        
+        <img class="card-img" src="${images[0] || ''}" alt="${bike.brand} ${bike.model}" loading="lazy" style="display:block; width:100%;" />
+        
+        <!-- Add Next Arrow if multiple images -->
+        ${images.length > 1 ? `<button class="card-nav card-next" aria-label="Next" style="position:absolute; right:5px; top:50%; transform:translateY(-50%); z-index:2; background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">›</button>` : ''}
+        
         ${bike.status === 'sold' ? '<div class="bike-sold-stamp"><span>Sold</span></div>' : ''}
-        ${images.length > 1 ? `<span class="bike-photo-count">📷 ${images.length}</span>` : ''}
+        ${images.length > 1 ? `<span class="bike-photo-count" style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.7); color:white; padding:2px 6px; border-radius:4px; font-size:12px;">1 / ${images.length}</span>` : ''}
       </div>
       <div class="bike-body">
         <h3 class="bike-model">${bike.model}</h3>
@@ -250,7 +261,32 @@
         </div>
       </div>
     `;
+
+    // 1. Handle next/prev button clicks on the card
+    if (images.length > 1) {
+      const prevBtn = card.querySelector('.card-prev');
+      const nextBtn = card.querySelector('.card-next');
+      const imgEl = card.querySelector('.card-img');
+      const countEl = card.querySelector('.bike-photo-count');
+
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Stops the modal from opening
+        currentImgIndex = (currentImgIndex - 1 + images.length) % images.length;
+        imgEl.src = images[currentImgIndex];
+        countEl.textContent = `${currentImgIndex + 1} / ${images.length}`;
+      });
+
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Stops the modal from opening
+        currentImgIndex = (currentImgIndex + 1) % images.length;
+        imgEl.src = images[currentImgIndex];
+        countEl.textContent = `${currentImgIndex + 1} / ${images.length}`;
+      });
+    }
+
+    // 2. Open the modal if the user clicks anywhere else on the card (like the image or the text)
     card.addEventListener('click', () => openModal(bike));
+
     return card;
   }
 
