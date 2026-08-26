@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "bk-1787751385685",
+    "brand": "Royal Enfield",
+    "model": "Bullet 350",
+    "year": 2020,
+    "price": 9653210484,
+    "km": 24000,
+    "condition": "Excellent",
+    "ownership": "1st Owner",
+    "fuel": "",
+    "color": "Black",
+    "docs": "RC + insurance Valid",
+    "status": "available",
+    "description": "",
+    "image": "images/1787751361537-image0.jpeg"
+  }
+]
