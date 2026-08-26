@@ -2,8 +2,9 @@
   const state = {
     bikes: [],
     config: {},
-    filters: { brand: '', minYear: '', maxPrice: '', sort: 'newest' },
-    gallery: { images: [], current: 0 }
+    filters: { brand: '', minYear: '', maxPrice: '', sort: 'newest', category: '' },
+    gallery: { images: [], current: 0 },
+    hero: { current: 0, timer: null }
   };
 
   const grid = document.getElementById('bike-grid');
@@ -23,37 +24,151 @@
       fetch('data/bikes.json', { cache: 'no-store' }),
       fetch('data/config.json', { cache: 'no-store' })
     ]);
+    if (!bikesRes.ok || !configRes.ok) throw new Error('Failed to fetch data files');
     state.bikes = await bikesRes.json();
     state.config = await configRes.json();
     applyConfigToPage();
+    buildHeroSlides();
     populateFilterOptions();
     render();
   }
 
+  // ── Apply config.json values to the page ─────────────────────────
   function applyConfigToPage() {
     const c = state.config;
-    document.title = c.businessName || 'Bike Stock';
-    document.getElementById('brand-name').innerHTML = `<span class="dot">●</span> ${c.businessName || 'Bike Stock'}`;
-    document.getElementById('hero-lead').textContent = c.tagline ? c.tagline + ' — ' + (c.aboutText || '') : (c.aboutText || '');
-    document.getElementById('about-text').textContent = c.aboutText || '';
-    document.getElementById('about-hours-text').textContent = c.hours ? `Open: ${c.hours}` : '';
-    document.getElementById('info-city').textContent = c.city || '—';
-    document.getElementById('info-address').textContent = c.address || '—';
-    document.getElementById('info-phone').textContent = c.phone || '—';
-    document.getElementById('info-hours').textContent = c.hours || '—';
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
-    document.getElementById('footer-text').innerHTML =
-      `© ${new Date().getFullYear()} ${c.businessName || 'Bike Stock'} — All bikes subject to availability.`;
+    document.title = (c.businessName || 'Akash Motors') + ' — Quality Used Bikes';
 
-    const waLink = whatsappLink(c.whatsapp, `Hi, I'd like to know more about your bike stock.`);
-    document.getElementById('header-whatsapp').href = waLink;
+    if (c.businessName) {
+      const [first, ...rest] = c.businessName.split(' ');
+      const restText = rest.join(' ');
+      document.querySelectorAll('.logo-text').forEach(el => {
+        el.innerHTML = restText ? `${first} <em>${restText}</em>` : first;
+      });
+    }
+
+    setText('hero-tag', c.tagline);
+    setText('hero-sub', c.heroSubtext);
+    setText('about-heading', c.businessName);
+    setText('about-body', c.aboutText);
+    setText('about-hours-text', c.hours ? `Open: ${c.hours}` : '');
+    setText('info-city', c.city);
+    setText('info-address', c.address);
+    setText('info-phone', c.phone);
+    setText('info-hours', c.hours);
+
+    const year = new Date().getFullYear();
+    setText('footer-year', year);
+    const footerText = document.getElementById('footer-text');
+    if (footerText) {
+      footerText.innerHTML = `© <span id="footer-year">${year}</span> ${c.businessName || 'Akash Motors'} — All bikes subject to availability.`;
+    }
+
+    // Phone
+    const navPhone = document.getElementById('nav-phone');
+    const navPhoneNum = document.getElementById('nav-phone-num');
+    if (c.phone) {
+      if (navPhoneNum) navPhoneNum.textContent = c.phone;
+      if (navPhone) navPhone.href = `tel:${c.phone.replace(/[^0-9+]/g, '')}`;
+    }
+
+    // WhatsApp links across the page
+    const genericText = `Hi, I'd like to know more about your bike stock.`;
+    const sellText = `Hi, I'd like to sell my bike. Can you give me a quote?`;
+    const waGeneric = whatsappLink(c.whatsapp, genericText);
+    const waSell = whatsappLink(c.whatsapp, sellText);
+
+    setHref('header-whatsapp', waGeneric);
+    setHref('mobile-wa', waGeneric);
+    setHref('wa-float', waGeneric);
+    setHref('hero-sell', waSell);
+    setHref('sell-cta-wa', waSell);
   }
 
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value !== undefined && value !== null) el.textContent = value;
+  }
+  function setHref(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.href = value;
+  }
+
+  // ── Hero slideshow ────────────────────────────────────────────────
+  function buildHeroSlides() {
+    const images = state.config.heroImages || [];
+    const slidesEl = document.getElementById('hero-slides');
+    const dotsEl = document.getElementById('hero-dots');
+    if (!slidesEl || !dotsEl) return;
+    slidesEl.innerHTML = '';
+    dotsEl.innerHTML = '';
+
+    if (!images.length) return;
+
+    images.forEach((src, i) => {
+      const div = document.createElement('div');
+      div.className = 'hero-slide' + (i === 0 ? ' active' : '');
+      div.style.backgroundImage = `url('${src}')`;
+      slidesEl.appendChild(div);
+
+      const dot = document.createElement('button');
+      dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Slide ${i + 1}`);
+      dot.addEventListener('click', () => goToHeroSlide(i));
+      dotsEl.appendChild(dot);
+    });
+
+    if (images.length > 1) {
+      state.hero.timer = setInterval(() => {
+        goToHeroSlide((state.hero.current + 1) % images.length);
+      }, 5000);
+    }
+  }
+
+  function goToHeroSlide(index) {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    if (!slides.length) return;
+    slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    state.hero.current = index;
+  }
+
+  // ── Category filter buttons ──────────────────────────────────────
+  function initCategoryButtons() {
+    document.querySelectorAll('.cat-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-card').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.filters.category = btn.dataset.cat || '';
+        render();
+        document.getElementById('stock').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  // ── Mobile menu ───────────────────────────────────────────────────
+  function initMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!hamburger || !menu) return;
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  }
+
+  // ── Filter dock (brand / year / price / sort) ────────────────────
   function populateFilterOptions() {
     const brandSel = document.getElementById('f-brand');
     const yearSel = document.getElementById('f-year');
     const brands = [...new Set(state.bikes.map(b => b.brand))].sort();
-    const years = [...new Set(state.bikes.map(b => b.year))].sort((a, b) => a - b);
+    const years = [...new Set(state.bikes.map(b => b.year))].sort((a, b) => b - a);
 
     brands.forEach(b => {
       const opt = document.createElement('option');
@@ -71,7 +186,7 @@
     document.getElementById('f-price').addEventListener('input', e => { state.filters.maxPrice = e.target.value; render(); });
     document.getElementById('f-sort').addEventListener('change', e => { state.filters.sort = e.target.value; render(); });
     document.getElementById('reset-filters').addEventListener('click', () => {
-      state.filters = { brand: '', minYear: '', maxPrice: '', sort: 'newest' };
+      state.filters = { brand: '', minYear: '', maxPrice: '', sort: 'newest', category: state.filters.category };
       brandSel.value = ''; yearSel.value = ''; document.getElementById('f-price').value = '';
       document.getElementById('f-sort').value = 'newest';
       render();
@@ -80,6 +195,7 @@
 
   function getFiltered() {
     let list = state.bikes.filter(b => {
+      if (state.filters.category && b.category !== state.filters.category) return false;
       if (state.filters.brand && b.brand !== state.filters.brand) return false;
       if (state.filters.minYear && b.year < Number(state.filters.minYear)) return false;
       if (state.filters.maxPrice && b.price > Number(state.filters.maxPrice)) return false;
@@ -109,29 +225,28 @@
   }
 
   function renderCard(bike) {
-    // Support both single image (bike.image) and multiple images (bike.images array)
     const images = bike.images && bike.images.length ? bike.images : (bike.image ? [bike.image] : []);
     const card = document.createElement('article');
-    card.className = 'tag-card';
+    card.className = 'bike-card';
     card.innerHTML = `
-      <div class="tag-punch"></div>
-      <div class="tag-stock">#${bike.id}</div>
-      <div class="tag-photo">
+      <div class="bike-punch"></div>
+      <div class="bike-stock">#${bike.id}</div>
+      <div class="bike-photo">
         <img src="${images[0] || ''}" alt="${bike.brand} ${bike.model}" loading="lazy" />
-        ${bike.status === 'sold' ? '<div class="tag-sold-stamp"><span>Sold</span></div>' : ''}
-        ${images.length > 1 ? `<span class="tag-photo-count">📷 ${images.length}</span>` : ''}
+        ${bike.status === 'sold' ? '<div class="bike-sold-stamp"><span>Sold</span></div>' : ''}
+        ${images.length > 1 ? `<span class="bike-photo-count">📷 ${images.length}</span>` : ''}
       </div>
-      <div class="tag-body">
-        <h3 class="tag-model">${bike.model}</h3>
-        <p class="tag-brand">${bike.brand} · ${bike.year}</p>
-        <div class="tag-specs">
+      <div class="bike-body">
+        <h3 class="bike-model">${bike.model}</h3>
+        <p class="bike-brand">${bike.brand} · ${bike.year}</p>
+        <div class="bike-specs">
           <span><b>${Number(bike.km).toLocaleString('en-IN')}</b> km</span>
           <span><b>${bike.condition}</b></span>
           <span><b>${bike.ownership}</b></span>
         </div>
-        <div class="tag-footer">
-          <div class="tag-price"><small>Price</small>${money(bike.price)}</div>
-          <span class="tag-arrow">Details →</span>
+        <div class="bike-footer">
+          <div class="bike-price"><small>Price</small>${money(bike.price)}</div>
+          <span class="bike-arrow">Details →</span>
         </div>
       </div>
     `;
@@ -143,17 +258,15 @@
   function setGalleryImage(index) {
     const imgs = state.gallery.images;
     if (!imgs.length) return;
-    index = (index + imgs.length) % imgs.length; // wrap around
+    index = (index + imgs.length) % imgs.length;
     state.gallery.current = index;
 
     document.getElementById('modal-img').src = imgs[index];
     document.getElementById('modal-count').textContent = imgs.length > 1 ? `${index + 1} / ${imgs.length}` : '';
 
-    // Update thumbnails active state
     const thumbs = document.querySelectorAll('#modal-thumbs img');
     thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
 
-    // Show/hide arrows
     const showArrows = imgs.length > 1;
     document.getElementById('modal-prev').style.display = showArrows ? '' : 'none';
     document.getElementById('modal-next').style.display = showArrows ? '' : 'none';
@@ -176,25 +289,20 @@
 
   // ── Modal open ───────────────────────────────────────────────────
   function openModal(bike) {
-    // Build images array — support bike.images[] or fallback to bike.image
     const images = bike.images && bike.images.length ? bike.images : (bike.image ? [bike.image] : []);
     state.gallery.images = images;
     state.gallery.current = 0;
 
-    // Set first image
     document.getElementById('modal-img').src = images[0] || '';
     document.getElementById('modal-img').alt = `${bike.brand} ${bike.model}`;
     document.getElementById('modal-count').textContent = images.length > 1 ? `1 / ${images.length}` : '';
 
-    // Show/hide navigation arrows
     const showArrows = images.length > 1;
     document.getElementById('modal-prev').style.display = showArrows ? '' : 'none';
     document.getElementById('modal-next').style.display = showArrows ? '' : 'none';
 
-    // Build thumbnails
     buildThumbs(images);
 
-    // Text fields
     document.getElementById('modal-model').textContent = bike.model;
     document.getElementById('modal-brand').textContent = `${bike.brand} · ${bike.year}`;
     document.getElementById('modal-desc').textContent = bike.description || '';
@@ -218,29 +326,21 @@
     document.getElementById('modal-overlay').classList.add('open');
   }
 
-  // ── Modal navigation ─────────────────────────────────────────────
   document.getElementById('modal-prev').addEventListener('click', (e) => {
     e.stopPropagation();
     setGalleryImage(state.gallery.current - 1);
   });
-
   document.getElementById('modal-next').addEventListener('click', (e) => {
     e.stopPropagation();
     setGalleryImage(state.gallery.current + 1);
   });
-
-  // Click image to expand to lightbox
   document.getElementById('modal-img').addEventListener('click', () => {
     openLightbox(state.gallery.current);
   });
-
-  // Expand button also opens lightbox
   document.getElementById('modal-expand').addEventListener('click', (e) => {
     e.stopPropagation();
     openLightbox(state.gallery.current);
   });
-
-  // ── Modal close ──────────────────────────────────────────────────
   document.getElementById('modal-close').addEventListener('click', () => {
     document.getElementById('modal-overlay').classList.remove('open');
   });
@@ -270,7 +370,6 @@
     state.gallery.current = index;
     document.getElementById('lightbox-img').src = imgs[index];
     document.getElementById('lightbox-count').textContent = imgs.length > 1 ? `${index + 1} / ${imgs.length}` : '';
-    // Keep modal thumbnail in sync
     const thumbs = document.querySelectorAll('#modal-thumbs img');
     thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
     document.getElementById('modal-img').src = imgs[index];
@@ -280,16 +379,13 @@
     e.stopPropagation();
     updateLightbox(state.gallery.current - 1);
   });
-
   document.getElementById('lightbox-next').addEventListener('click', (e) => {
     e.stopPropagation();
     updateLightbox(state.gallery.current + 1);
   });
-
   document.getElementById('lightbox-close').addEventListener('click', () => {
     document.getElementById('lightbox-overlay').classList.remove('open');
   });
-
   document.getElementById('lightbox-overlay').addEventListener('click', (e) => {
     if (e.target.id === 'lightbox-overlay') {
       document.getElementById('lightbox-overlay').classList.remove('open');
@@ -302,25 +398,29 @@
     const modalOpen = document.getElementById('modal-overlay').classList.contains('open');
 
     if (e.key === 'Escape') {
-      if (lightboxOpen) {
-        document.getElementById('lightbox-overlay').classList.remove('open');
-      } else if (modalOpen) {
-        document.getElementById('modal-overlay').classList.remove('open');
-      }
+      if (lightboxOpen) document.getElementById('lightbox-overlay').classList.remove('open');
+      else if (modalOpen) document.getElementById('modal-overlay').classList.remove('open');
     }
-
     if (e.key === 'ArrowLeft') {
       if (lightboxOpen) updateLightbox(state.gallery.current - 1);
       else if (modalOpen) setGalleryImage(state.gallery.current - 1);
     }
-
     if (e.key === 'ArrowRight') {
       if (lightboxOpen) updateLightbox(state.gallery.current + 1);
       else if (modalOpen) setGalleryImage(state.gallery.current + 1);
     }
   });
 
-  // ── Load ─────────────────────────────────────────────────────────
+  // ── Sticky navbar shadow on scroll ────────────────────────────────
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ── Init ─────────────────────────────────────────────────────────
+  initCategoryButtons();
+  initMobileMenu();
+
   loadData().catch(err => {
     grid.innerHTML = `<div class="empty-state">Couldn't load stock data. Make sure data/bikes.json and data/config.json exist.</div>`;
     console.error(err);
