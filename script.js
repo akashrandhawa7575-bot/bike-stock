@@ -1,5 +1,10 @@
 (function () {
-  const state = { bikes: [], config: {}, filters: { brand: '', minYear: '', maxPrice: '', sort: 'newest' } };
+  const state = {
+    bikes: [],
+    config: {},
+    filters: { brand: '', minYear: '', maxPrice: '', sort: 'newest' },
+    gallery: { images: [], current: 0 }
+  };
 
   const grid = document.getElementById('bike-grid');
   const resultCount = document.getElementById('result-count');
@@ -104,14 +109,17 @@
   }
 
   function renderCard(bike) {
+    // Support both single image (bike.image) and multiple images (bike.images array)
+    const images = bike.images && bike.images.length ? bike.images : (bike.image ? [bike.image] : []);
     const card = document.createElement('article');
     card.className = 'tag-card';
     card.innerHTML = `
       <div class="tag-punch"></div>
       <div class="tag-stock">#${bike.id}</div>
       <div class="tag-photo">
-        <img src="${bike.image}" alt="${bike.brand} ${bike.model}" loading="lazy" />
+        <img src="${images[0] || ''}" alt="${bike.brand} ${bike.model}" loading="lazy" />
         ${bike.status === 'sold' ? '<div class="tag-sold-stamp"><span>Sold</span></div>' : ''}
+        ${images.length > 1 ? `<span class="tag-photo-count">📷 ${images.length}</span>` : ''}
       </div>
       <div class="tag-body">
         <h3 class="tag-model">${bike.model}</h3>
@@ -131,9 +139,62 @@
     return card;
   }
 
+  // ── Gallery helpers ──────────────────────────────────────────────
+  function setGalleryImage(index) {
+    const imgs = state.gallery.images;
+    if (!imgs.length) return;
+    index = (index + imgs.length) % imgs.length; // wrap around
+    state.gallery.current = index;
+
+    document.getElementById('modal-img').src = imgs[index];
+    document.getElementById('modal-count').textContent = imgs.length > 1 ? `${index + 1} / ${imgs.length}` : '';
+
+    // Update thumbnails active state
+    const thumbs = document.querySelectorAll('#modal-thumbs img');
+    thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+
+    // Show/hide arrows
+    const showArrows = imgs.length > 1;
+    document.getElementById('modal-prev').style.display = showArrows ? '' : 'none';
+    document.getElementById('modal-next').style.display = showArrows ? '' : 'none';
+  }
+
+  function buildThumbs(images) {
+    const thumbsEl = document.getElementById('modal-thumbs');
+    thumbsEl.innerHTML = '';
+    if (images.length <= 1) return;
+
+    images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `Photo ${i + 1}`;
+      if (i === 0) img.classList.add('active');
+      img.addEventListener('click', () => setGalleryImage(i));
+      thumbsEl.appendChild(img);
+    });
+  }
+
+  // ── Modal open ───────────────────────────────────────────────────
   function openModal(bike) {
-    document.getElementById('modal-img').src = bike.image;
+    // Build images array — support bike.images[] or fallback to bike.image
+    const images = bike.images && bike.images.length ? bike.images : (bike.image ? [bike.image] : []);
+    state.gallery.images = images;
+    state.gallery.current = 0;
+
+    // Set first image
+    document.getElementById('modal-img').src = images[0] || '';
     document.getElementById('modal-img').alt = `${bike.brand} ${bike.model}`;
+    document.getElementById('modal-count').textContent = images.length > 1 ? `1 / ${images.length}` : '';
+
+    // Show/hide navigation arrows
+    const showArrows = images.length > 1;
+    document.getElementById('modal-prev').style.display = showArrows ? '' : 'none';
+    document.getElementById('modal-next').style.display = showArrows ? '' : 'none';
+
+    // Build thumbnails
+    buildThumbs(images);
+
+    // Text fields
     document.getElementById('modal-model').textContent = bike.model;
     document.getElementById('modal-brand').textContent = `${bike.brand} · ${bike.year}`;
     document.getElementById('modal-desc').textContent = bike.description || '';
@@ -157,16 +218,109 @@
     document.getElementById('modal-overlay').classList.add('open');
   }
 
+  // ── Modal navigation ─────────────────────────────────────────────
+  document.getElementById('modal-prev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    setGalleryImage(state.gallery.current - 1);
+  });
+
+  document.getElementById('modal-next').addEventListener('click', (e) => {
+    e.stopPropagation();
+    setGalleryImage(state.gallery.current + 1);
+  });
+
+  // Click image to expand to lightbox
+  document.getElementById('modal-img').addEventListener('click', () => {
+    openLightbox(state.gallery.current);
+  });
+
+  // Expand button also opens lightbox
+  document.getElementById('modal-expand').addEventListener('click', (e) => {
+    e.stopPropagation();
+    openLightbox(state.gallery.current);
+  });
+
+  // ── Modal close ──────────────────────────────────────────────────
   document.getElementById('modal-close').addEventListener('click', () => {
     document.getElementById('modal-overlay').classList.remove('open');
   });
   document.getElementById('modal-overlay').addEventListener('click', (e) => {
     if (e.target.id === 'modal-overlay') e.currentTarget.classList.remove('open');
   });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') document.getElementById('modal-overlay').classList.remove('open');
+
+  // ── Lightbox ─────────────────────────────────────────────────────
+  function openLightbox(index) {
+    const imgs = state.gallery.images;
+    if (!imgs.length) return;
+    state.gallery.current = index;
+
+    document.getElementById('lightbox-img').src = imgs[index];
+    document.getElementById('lightbox-count').textContent = imgs.length > 1 ? `${index + 1} / ${imgs.length}` : '';
+
+    const showArrows = imgs.length > 1;
+    document.getElementById('lightbox-prev').style.display = showArrows ? '' : 'none';
+    document.getElementById('lightbox-next').style.display = showArrows ? '' : 'none';
+
+    document.getElementById('lightbox-overlay').classList.add('open');
+  }
+
+  function updateLightbox(index) {
+    const imgs = state.gallery.images;
+    index = (index + imgs.length) % imgs.length;
+    state.gallery.current = index;
+    document.getElementById('lightbox-img').src = imgs[index];
+    document.getElementById('lightbox-count').textContent = imgs.length > 1 ? `${index + 1} / ${imgs.length}` : '';
+    // Keep modal thumbnail in sync
+    const thumbs = document.querySelectorAll('#modal-thumbs img');
+    thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+    document.getElementById('modal-img').src = imgs[index];
+  }
+
+  document.getElementById('lightbox-prev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    updateLightbox(state.gallery.current - 1);
   });
 
+  document.getElementById('lightbox-next').addEventListener('click', (e) => {
+    e.stopPropagation();
+    updateLightbox(state.gallery.current + 1);
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', () => {
+    document.getElementById('lightbox-overlay').classList.remove('open');
+  });
+
+  document.getElementById('lightbox-overlay').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox-overlay') {
+      document.getElementById('lightbox-overlay').classList.remove('open');
+    }
+  });
+
+  // ── Keyboard navigation ──────────────────────────────────────────
+  document.addEventListener('keydown', (e) => {
+    const lightboxOpen = document.getElementById('lightbox-overlay').classList.contains('open');
+    const modalOpen = document.getElementById('modal-overlay').classList.contains('open');
+
+    if (e.key === 'Escape') {
+      if (lightboxOpen) {
+        document.getElementById('lightbox-overlay').classList.remove('open');
+      } else if (modalOpen) {
+        document.getElementById('modal-overlay').classList.remove('open');
+      }
+    }
+
+    if (e.key === 'ArrowLeft') {
+      if (lightboxOpen) updateLightbox(state.gallery.current - 1);
+      else if (modalOpen) setGalleryImage(state.gallery.current - 1);
+    }
+
+    if (e.key === 'ArrowRight') {
+      if (lightboxOpen) updateLightbox(state.gallery.current + 1);
+      else if (modalOpen) setGalleryImage(state.gallery.current + 1);
+    }
+  });
+
+  // ── Load ─────────────────────────────────────────────────────────
   loadData().catch(err => {
     grid.innerHTML = `<div class="empty-state">Couldn't load stock data. Make sure data/bikes.json and data/config.json exist.</div>`;
     console.error(err);
