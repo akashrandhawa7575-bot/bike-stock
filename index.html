@@ -94,9 +94,13 @@
       <p style="color: #a0a0a0; margin-top: 10px;">Get a look at our current inventory from every respective angle.</p>
     </div>
     <div class="video-container">
-      <!-- Replace 'your-video-file.mp4' with the actual high-definition video of your showroom design -->
-      <video controls poster="img/showroom-poster.jpg" style="width: 100%; border-radius: 12px; border: 1px solid #333;">
-        <source src="showroom.mp4" type="video/mp4">
+      <video
+        controls
+        poster="img/showroom-poster.jpg"
+        style="width: 100%; border-radius: 12px; border: 1px solid #333;"
+        preload="metadata"
+      >
+        <source src="https://cdn.jsdelivr.net/gh/akashrandhawa7575/akashmotor.co.in@main/showroom.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
@@ -161,10 +165,10 @@
       <h2 id="about-heading">Akash Motors</h2>
       <p id="about-body">We buy and sell quality used motorcycles with honest pricing and verified paperwork. Every bike in our stock has been personally inspected.</p>
       <div class="info-card" id="contact">
-        <div class="info-row"><span class="ik">📍 Location</span><span class="iv" id="info-city">Amritsar, Punjab</span></div>
-        <div class="info-row"><span class="ik">🏠 Address</span><span class="iv" id="info-address">Mehta Chowk</span></div>
+        <div class="info-row"><span class="ik">📍 Location</span><span class="iv" id="info-city">—</span></div>
+        <div class="info-row"><span class="ik">🏠 Address</span><span class="iv" id="info-address">—</span></div>
         <div class="info-row"><span class="ik">📞 Phone</span><span class="iv" id="info-phone">—</span></div>
-        <div class="info-row"><span class="ik">🕐 Hours</span><span class="iv" id="info-hours">Mon - Sat, 10:00 AM - 7:30 PM</span></div>
+        <div class="info-row"><span class="ik">🕐 Hours</span><span class="iv" id="info-hours">—</span></div>
       </div>
     </div>
     <div class="about-visual">
@@ -181,11 +185,9 @@
       <span class="section-eyebrow">Follow Us</span>
       <h2>Latest on Instagram</h2>
     </div>
-    <!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
-<script src="https://elfsightcdn.com/platform.js" async></script>
-<div class="elfsight-app-1797ee2c-0d41-4382-b2f6-5c83506752d6" data-elfsight-app-lazy></div>
-    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-    <div class="elfsight-app-YOUR-WIDGET-ID-HERE"></div>
+    <!-- Elfsight Instagram Feed -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-1797ee2c-0d41-4382-b2f6-5c83506752d6" data-elfsight-app-lazy></div>
   </div>
 </section>
 
@@ -209,8 +211,6 @@
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
-    
-    <!-- Added Video Support Here -->
     <div class="modal-gallery" id="modal-gallery">
       <video id="modal-video" controls style="display:none; width:100%; max-height:400px; background:#000; border-radius:8px;"></video>
       <img id="modal-img" src="" alt="" />
@@ -219,7 +219,6 @@
       <span class="gal-count" id="modal-count"></span>
       <button class="expand-btn" id="modal-expand" aria-label="View fullscreen">⤢</button>
     </div>
-    
     <div class="modal-thumbs" id="modal-thumbs"></div>
     <div class="modal-body">
       <h3 id="modal-model"></h3>
