@@ -329,8 +329,26 @@
     state.gallery.images = images;
     state.gallery.current = 0;
 
-    document.getElementById('modal-img').src = images[0] || '';
-    document.getElementById('modal-img').alt = `${bike.brand} ${bike.model}`;
+    const modalImg = document.getElementById('modal-img');
+    const modalVid = document.getElementById('modal-video');
+
+    // Check if a video exists in the JSON data for this bike
+    if (bike.video) {
+      modalImg.style.display = 'none';
+      if (modalVid) {
+        modalVid.style.display = 'block';
+        modalVid.src = bike.video;
+      }
+    } else {
+      if (modalVid) {
+        modalVid.style.display = 'none';
+        modalVid.pause(); // Stop video if switching to an image
+      }
+      modalImg.style.display = 'block';
+      modalImg.src = images[0] || '';
+      modalImg.alt = `${bike.brand} ${bike.model}`;
+    }
+
     document.getElementById('modal-count').textContent = images.length > 1 ? `1 / ${images.length}` : '';
 
     const showArrows = images.length > 1;
