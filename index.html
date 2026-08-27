@@ -21,9 +21,9 @@
     </a>
     <nav class="nav-links">
       <a href="#stock">Stock</a>
-      <a href="#categories">Browse</a>
+      <a href="#showroom">Showroom</a>
+      <a href="#faqs">FAQs</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
       <a href="#" class="nav-phone" id="nav-phone">📞 <span id="nav-phone-num">Call Us</span></a>
@@ -35,18 +35,16 @@
   </div>
   <div class="mobile-menu" id="mobile-menu">
     <a href="#stock">Stock</a>
-    <a href="#categories">Browse</a>
+    <a href="#showroom">Showroom</a>
+    <a href="#faqs">FAQs</a>
     <a href="#about">About</a>
-    <a href="#contact">Contact</a>
     <a href="#" id="mobile-wa" target="_blank" rel="noopener" class="mobile-wa-btn">WhatsApp Us</a>
   </div>
 </header>
 
 <!-- ── Hero ── -->
 <section class="hero" id="hero">
-  <div class="hero-slides" id="hero-slides">
-    <!-- Slides injected by JS -->
-  </div>
+  <div class="hero-slides" id="hero-slides"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-tag" id="hero-tag">Punjab's Trusted Bike Dealer</p>
@@ -64,20 +62,9 @@
 <!-- ── Trust Bar ── -->
 <section class="trust-bar">
   <div class="trust-inner">
-    <div class="trust-item">
-      <span class="trust-num">100%</span>
-      <span class="trust-label">Verified Paperwork</span>
-    </div>
-    <div class="trust-div"></div>
-    <div class="trust-item">
-      <span class="trust-num">Fair</span>
-      <span class="trust-label">Honest Pricing</span>
-    </div>
-    <div class="trust-div"></div>
-    <div class="trust-item">
-      <span class="trust-num">Fast</span>
-      <span class="trust-label">RC Transfer Help</span>
-    </div>
+    <div class="trust-item"><span class="trust-num">100%</span><span class="trust-label">Verified Paperwork</span></div><div class="trust-div"></div>
+    <div class="trust-item"><span class="trust-num">Fair</span><span class="trust-label">Honest Pricing</span></div><div class="trust-div"></div>
+    <div class="trust-item"><span class="trust-num">Fast</span><span class="trust-label">RC Transfer Help</span></div>
   </div>
 </section>
 
@@ -89,51 +76,29 @@
       <h2>Find your style</h2>
     </div>
     <div class="cat-grid">
-      <button class="cat-card active" data-cat="">
-        <div class="cat-icon">🏍️</div>
-        <div class="cat-name">All Bikes</div>
-      </button>
-      <button class="cat-card" data-cat="commuter">
-        <div class="cat-icon">🛵</div>
-        <div class="cat-name">Commuter</div>
-      </button>
-      <button class="cat-card" data-cat="sports">
-        <div class="cat-icon">⚡</div>
-        <div class="cat-name">Sports</div>
-      </button>
-      <button class="cat-card" data-cat="cruiser">
-        <div class="cat-icon">🔥</div>
-        <div class="cat-name">Cruiser</div>
-      </button>
-      <button class="cat-card" data-cat="adventure">
-        <div class="cat-icon">🏔️</div>
-        <div class="cat-name">Adventure</div>
-      </button>
+      <button class="cat-card active" data-cat=""><div class="cat-icon">🏍️</div><div class="cat-name">All Bikes</div></button>
+      <button class="cat-card" data-cat="commuter"><div class="cat-icon">🛵</div><div class="cat-name">Commuter</div></button>
+      <button class="cat-card" data-cat="sports"><div class="cat-icon">⚡</div><div class="cat-name">Sports</div></button>
+      <button class="cat-card" data-cat="cruiser"><div class="cat-icon">🔥</div><div class="cat-name">Cruiser</div></button>
+      <button class="cat-card" data-cat="adventure"><div class="cat-icon">🏔️</div><div class="cat-name">Adventure</div></button>
     </div>
   </div>
 </section>
 
-<!-- ── Brand Logos ── -->
-<section class="brands-strip">
-  <div class="brands-track">
-    <div class="brands-inner" id="brands-inner">
-      <span>HERO</span>
-      <span>BAJAJ</span>
-      <span>TVS</span>
-      <span>ROYAL ENFIELD</span>
-      <span>KTM</span>
-      <span>HONDA</span>
-      <span>YAMAHA</span>
-      <span>SUZUKI</span>
-      <!-- duplicated for infinite scroll -->
-      <span>HERO</span>
-      <span>BAJAJ</span>
-      <span>TVS</span>
-      <span>ROYAL ENFIELD</span>
-      <span>KTM</span>
-      <span>HONDA</span>
-      <span>YAMAHA</span>
-      <span>SUZUKI</span>
+<!-- ── Showroom Video Tour ── -->
+<section class="showroom" id="showroom">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Virtual Tour</span>
+      <h2>Explore Our Showroom</h2>
+      <p style="color: #a0a0a0; margin-top: 10px;">Get a look at our current inventory from every respective angle.</p>
+    </div>
+    <div class="video-container">
+      <!-- Replace 'your-video-file.mp4' with the actual high-definition video of your showroom design -->
+      <video controls poster="img/showroom-poster.jpg" style="width: 100%; border-radius: 12px; border: 1px solid #333;">
+        <source src="showroom.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 </section>
@@ -147,12 +112,8 @@
         <h2>Current Stock</h2>
       </div>
       <div class="filter-dock">
-        <select id="f-brand" class="filter-sel">
-          <option value="">All Brands</option>
-        </select>
-        <select id="f-year" class="filter-sel">
-          <option value="">Any Year</option>
-        </select>
+        <select id="f-brand" class="filter-sel"><option value="">All Brands</option></select>
+        <select id="f-year" class="filter-sel"><option value="">Any Year</option></select>
         <input type="number" id="f-price" class="filter-input" placeholder="Max Price ₹" min="0" />
         <select id="f-sort" class="filter-sel">
           <option value="newest">Newest</option>
@@ -163,107 +124,66 @@
         <button class="reset-btn" id="reset-filters">Reset</button>
       </div>
     </div>
-    <div class="result-bar">
-      <span class="result-count" id="result-count">Loading…</span>
-    </div>
+    <div class="result-bar"><span class="result-count" id="result-count">Loading…</span></div>
     <div class="bike-grid" id="bike-grid"></div>
   </div>
 </section>
 
-<!-- ── Sell Your Bike CTA ── -->
-<section class="sell-cta">
-  <div class="sell-cta-inner">
-    <div class="sell-cta-text">
-      <h2>Planning to Sell?</h2>
-      <p>We buy bikes directly — outright payment, no waiting. Get the best offer for your bike today.</p>
-      <ul class="sell-points">
-        <li>✔ Outright cash purchase</li>
-        <li>✔ Best market price offered</li>
-        <li>✔ Hassle-free RC transfer</li>
-        <li>✔ Same-day inspection</li>
-      </ul>
-    </div>
-    <a href="#" class="btn-primary btn-lg" id="sell-cta-wa">Get a Quote on WhatsApp</a>
-  </div>
-</section>
-
-<!-- ── Reviews ── -->
-<section class="reviews" id="reviews">
+<!-- ── FAQs ── -->
+<section class="faqs" id="faqs" style="background: #111; padding: 80px 0;">
   <div class="section-wrap">
     <div class="section-head">
-      <span class="section-eyebrow">Customer Stories</span>
-      <h2>What people say</h2>
+      <span class="section-eyebrow">Got Questions?</span>
+      <h2>Frequently Asked Questions</h2>
     </div>
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Got a great deal on a Royal Enfield. Mint condition and fair price!"</p>
-        <div class="review-author">
-          <div class="review-avatar">RS</div>
-          <div>
-            <div class="review-name">Rajveer Singh</div>
-            <div class="review-loc">Amritsar, Punjab</div>
-          </div>
-        </div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Bought a Hero Splendor Plus. Very smooth engine and excellent mileage."</p>
-        <div class="review-author">
-          <div class="review-avatar">PK</div>
-          <div>
-            <div class="review-name">Paramjit Kaur</div>
-            <div class="review-loc">Amritsar, Punjab</div>
-          </div>
-        </div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Upgraded to a Royal Enfield here. Quick paper transfer and super easy process."</p>
-        <div class="review-author">
-          <div class="review-avatar">AM</div>
-          <div>
-            <div class="review-name">Arjun Mehta</div>
-            <div class="review-loc">Amritsar, Punjab</div>
-          </div>
-        </div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"My Splendor runs perfectly. Definitely the best place for used bikes!"</p>
-        <div class="review-author">
-          <div class="review-avatar">GD</div>
-          <div>
-            <div class="review-name">Gurpreet Dhaliwal</div>
-            <div class="review-loc">Amritsar, Punjab</div>
-          </div>
-        </div>
-      </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Do you offer loan or finance options?</summary>
+        <p>Yes, we can help connect you with local financing partners to make purchasing your next bike easier. Contact us on WhatsApp for exact EMI details based on the bike you choose.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How long does the RC transfer take?</summary>
+        <p>We handle all the paperwork for you! The RC transfer process typically takes 15-30 days depending on the local RTO processing times, but you can ride the bike immediately with the transfer receipt.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I sell my bike to you directly?</summary>
+        <p>Absolutely. We buy bikes directly with outright cash payments and handle the RC transfer hassle-free. Just bring your bike in for a same-day inspection.</p>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- ── About ── -->
+<!-- ── About & Map ── -->
 <section class="about" id="about">
   <div class="section-wrap about-inner">
     <div class="about-text">
       <span class="section-eyebrow">About Us</span>
       <h2 id="about-heading">Akash Motors</h2>
       <p id="about-body">We buy and sell quality used motorcycles with honest pricing and verified paperwork. Every bike in our stock has been personally inspected.</p>
-      <p id="about-hours-text" class="about-hours"></p>
       <div class="info-card" id="contact">
-        <div class="info-row"><span class="ik">📍 Location</span><span class="iv" id="info-city">—</span></div>
-        <div class="info-row"><span class="ik">🏠 Address</span><span class="iv" id="info-address">—</span></div>
+        <div class="info-row"><span class="ik">📍 Location</span><span class="iv" id="info-city">Amritsar, Punjab</span></div>
+        <div class="info-row"><span class="ik">🏠 Address</span><span class="iv" id="info-address">Mehta Chowk</span></div>
         <div class="info-row"><span class="ik">📞 Phone</span><span class="iv" id="info-phone">—</span></div>
-        <div class="info-row"><span class="ik">🕐 Hours</span><span class="iv" id="info-hours">—</span></div>
+        <div class="info-row"><span class="ik">🕐 Hours</span><span class="iv" id="info-hours">Mon - Sat, 10:00 AM - 7:30 PM</span></div>
       </div>
     </div>
     <div class="about-visual">
-      <div class="about-stat-box">
-        <div class="stat"><span class="stat-n">5★</span><span class="stat-l">Customer Rating</span></div>
-        <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Clean Papers</span></div>
-      </div>
+      <!-- Google Maps Embed -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108608.20366624535!2d75.25055052981355!3d31.719623877965415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391ba2b836a9b40d%3A0xc3f58a3617fcbd41!2sMehta%20Chowk%2C%20Punjab!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
+  </div>
+</section>
+
+<!-- ── Instagram Feed ── -->
+<section class="instagram-feed" id="social" style="padding: 60px 0; text-align: center;">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Follow Us</span>
+      <h2>Latest on Instagram</h2>
+    </div>
+    <!-- Replace this generic tag with your specific Elfsight or Instafeed widget ID -->
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <div class="elfsight-app-YOUR-WIDGET-ID-HERE"></div>
   </div>
 </section>
 
@@ -273,12 +193,6 @@
     <div class="footer-brand">
       <span class="logo-icon">⬡</span>
       <span class="logo-text">Akash <em>Motors</em></span>
-    </div>
-    <div class="footer-links">
-      <a href="#stock">Stock</a>
-      <a href="#categories">Browse</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
     </div>
     <div class="footer-copy" id="footer-text">© <span id="footer-year"></span> Akash Motors — All bikes subject to availability.</div>
   </div>
@@ -293,13 +207,17 @@
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    
+    <!-- Added Video Support Here -->
     <div class="modal-gallery" id="modal-gallery">
+      <video id="modal-video" controls style="display:none; width:100%; max-height:400px; background:#000; border-radius:8px;"></video>
       <img id="modal-img" src="" alt="" />
       <button class="gal-arrow left" id="modal-prev">‹</button>
       <button class="gal-arrow right" id="modal-next">›</button>
       <span class="gal-count" id="modal-count"></span>
       <button class="expand-btn" id="modal-expand" aria-label="View fullscreen">⤢</button>
     </div>
+    
     <div class="modal-thumbs" id="modal-thumbs"></div>
     <div class="modal-body">
       <h3 id="modal-model"></h3>
