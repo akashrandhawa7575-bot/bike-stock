@@ -1,5 +1,21 @@
 [
   {
+    "id": "bk-1788450174793",
+    "brand": "Royal Enfield",
+    "model": "Bullet 350",
+    "year": 2019,
+    "price": 0,
+    "km": 22000,
+    "condition": "Excellent",
+    "ownership": "1st Owner",
+    "fuel": "Petrol",
+    "color": "Black",
+    "docs": "RC + insurance Valid",
+    "status": "available",
+    "description": "Call for best price.",
+    "image": "images/1788450092812-IMG_8859.jpg"
+  },
+  {
     "id": "bk-1787808836710",
     "brand": "Royal Enfield",
     "model": "Bullet 350",
