@@ -1,5 +1,21 @@
 [
   {
+    "id": "bk-1788450460280",
+    "brand": "Royal Enfield",
+    "model": "Electra Bullet 350",
+    "year": 2017,
+    "price": 0,
+    "km": 7500,
+    "condition": "Excellent",
+    "ownership": "1st Owner",
+    "fuel": "Petrol",
+    "color": "Black",
+    "docs": "RC + insurance Valid",
+    "status": "available",
+    "description": "All original Bike with less than 8000 kms on it.\nCall for more info.",
+    "image": "images/1788450337372-IMG_8857.jpg"
+  },
+  {
     "id": "bk-1788450281461",
     "brand": "Royal Enfield",
     "model": "Bullet 350",
